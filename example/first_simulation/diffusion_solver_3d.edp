@@ -1,0 +1,254 @@
+// ===================
+// Diffusion-Reaction in 3D
+// =================== 
+//
+load "msh3" load "medit"  // dynamics load tools for 3d.
+include "getARGV.idp"
+// include the file containing the paraview interface
+include "../../src/postprocessing.edp";
+
+ 
+/*
+========================================
+PDE:
+div(D du) + Ru = S
+Finite Element:
+(Dcoeff*du,dv) + (Rcoeff*u,v) = SourceCoeff*v
+Rcoeff = consumption
+Source = source
+========================================
+*/
+
+
+// get iteration from arguments
+int solverTime=getARGV("-time",1);
+int nIter=getARGV("-iter",1);
+
+real Dcoeff = 10; //1 10; // Diffusion coefficient
+real alphaNorm = 0.0; //0.3; // 2.4 consumption coeff (normoxic cells)
+real alphaHypo = 0.0; //alphaNorm/5; // consumption coeff (hypoxic cells) - should be same for TOMMASO 
+real Jvein = 1e-3; // 1e-3 coefficient for filtration term 
+real u0 = 60.0; //60.0; // vessel concentration
+real O2T = 2.5; // 2.5; saturation value (Michaelis-Menten)
+real alphaRobin = 0.0; //0.02; // 0: Neumann BC, >0 Robin BC
+real Rtissue = 6e-4; // O2 consumption of normal tissue WAS 2e-5
+real timeBlock = 8000; // 8000
+int cellBlock = 100; // block vessels when ncells>6000
+// !!! ============================================================= !!
+// this must be consistent with the file vein_geometry.edp
+int nVesselsAll = 1;
+int nVesselsBlocked = 0;
+// !!! ============================================================= !!
+// this must be the same as in the input.dat
+string meshFileName = "domain_adaptive_200x200x200_one_vessel.mesh";
+string outdir = "output/"; 
+// !!! ============================================================= !!
+
+// read mesh
+mesh3 th=readmesh3(meshFileName);
+// =============
+  
+fespace Vh0(th,P03d);
+fespace Vh1(th,P13d); 
+fespace Vh2(th,P23d);
+Vh2 u,v;
+Vh2 uold = u0; // previous solution
+
+
+Vh0 volTetra;
+volTetra = volume;
+
+// =======================================
+// file containing cell list
+ifstream cfile(outdir+"cells.txt");
+// output file with concentration
+ofstream o2file(outdir+"concentration.txt");
+int nCells,totIter;
+real conc,dxconc,dyconc,dzconc;
+cfile >> nCells;
+cfile >> nIter;
+cfile >> totIter;
+
+
+// ************************
+Vh1 veinsNetwork;
+
+include "vein_geometry.edp";
+//cout << " solver time: " << solverTime << endl;
+
+nVessels = nVesselsAll;
+if (nCells>=cellBlock) {
+  nVessels = nVesselsAll - nVesselsBlocked;
+ }
+ 
+for (int i=0; i<nVessels; i++){
+  real z2 = zN(p2(i));
+  real z1 = zN(p1(i));
+  real y2 = yN(p2(i));
+  real y1b = yN(p1(i));
+  real x2 = xN(p2(i));
+  real x1 = xN(p1(i));
+  
+  // direction P2-P1
+  real Vx = xN(p2(i))-xN(p1(i));
+  real Vy = yN(p2(i))-yN(p1(i));
+  real Vz = zN(p2(i))-zN(p1(i));
+  real length2 = Vx^2+Vy^2+Vz^2;
+
+  //cout << " vessel " << i << " length = " << sqrt(length2) << endl;
+  // distance x = (x,y,z) from vein
+  // ||(x - x1) X (x - x2)||/|x1-x2|
+  Vh1 d2 = (((y-y1b)*(z - z2) - (z - z1)*(y - y2))^2
+	    + ((z-z1)*(x-x2) - (x - x1)*(z - z2))^2
+	    + ((x-x1)*(y-y2) - (y-y1b)*(x-x2))^2)/length2;
+  
+  Vh1 isInside = ( (x-xN(p1(i)))*Vx + (y-yN(p1(i)))*Vy + (z-zN(p1(i)))*Vz)*
+    (-(x-xN(p2(i)))*Vx - (y-yN(p2(i)))*Vy - (z-zN(p2(i)))*Vz);
+  
+  Vh1 segment = (d2 < rV(i)^2)*(isInside>=0);
+  veinsNetwork = veinsNetwork + segment;
+ }
+
+
+Vh1 vein = veinsNetwork;
+
+//plot(vein,wait=1);
+// ************************
+
+string fileCellsDensity2FEM=outdir+"cell_density.txt";
+Vh0 rho,rhoN,rhoH; // FreeFem++ function
+// cell radius (token constant)
+real cellRadius0 = 5;
+// =====================================================
+// read density of cells (averaged) from file: cell_density.txt
+ifstream rhofile(fileCellsDensity2FEM);
+real[int] rhoDOF(Vh0.ndof);
+real[int] rhoDOFnorm(Vh0.ndof),rhoDOFhypo(Vh0.ndof),
+	  rhoDOFdead(Vh0.ndof);
+
+for (int i=0; i<rhoDOF.n; i++){
+    rhofile >> rhoDOF(i); 
+    rhofile >> rhoDOFnorm(i);
+    rhofile >> rhoDOFhypo(i);
+    rhofile >> rhoDOFdead(i);
+    if (rhoDOF(i) != (rhoDOFnorm(i)+rhoDOFhypo(i)+rhoDOFdead(i))){
+       cout << " ************** ERROR ************* " << endl;
+       cout << " total cells " << rhoDOF(i) << " normoxic " << rhoDOFnorm(i) << " hypoxic " << rhoDOFhypo(i) << " death " << rhoDOFdead(i) << endl;
+    }
+
+    real facti = (4./3.*pi*cellRadius0^3)/volTetra[][i];
+    rhoDOF(i) = rhoDOF(i)*facti;
+ 
+}
+
+// fill the values of density functions
+rho[] = rhoDOF;
+rhoN[] = rhoDOFnorm;
+rhoH[] = rhoDOFhypo;
+
+ 
+// define FE problem
+// u: ansatz funcion, v: test function
+problem DiffusionReaction(u,v,init=0,solver=GMRES) = 
+	       int3d(th) ( Dcoeff*(dx(u)*dx(v) + dy(u)*dy(v) +dz(u)*dz(v)))  // diffusion
+	       + int3d(th) (Rtissue*u*v)
+	       + int3d(th) ( 1./Jvein*vein*u*v) // vein
+	       + int3d(th) ( -1./Jvein*vein*u0*v) 
+	       + int3d(th) ( (alphaNorm*rhoN + alphaHypo*rhoH)/(O2T + uold) * u * v )
+// BC: homogeneous neumann (do nothing)
+	       // BC: Robin
+	       +int2d(th,1,2,3,4,5,6)(alphaRobin*u*v)	       
+	       // RHS Robin BC
+	       -int2d(th,1,2,3,4,5,6)(alphaRobin*u0*v)
+	       ;
+
+
+
+real[int] uoldDOF(Vh2.ndof);
+
+// if nIter > 0: read previous solution from file
+if (nIter>0) {
+  //cout << " iteration " << nIter << " reading FIRST solution " << endl;
+  ifstream uoldfile("fem_results/solution.txt");
+  
+  for (int i=0; i<uoldDOF.n; i++){
+    uoldfile >> uoldDOF(i);
+  }
+
+  //uold[]=uoldDOF;
+  u[]=uoldDOF;
+}
+
+// solve the problem for the first time step only
+if (nIter==0) {
+DiffusionReaction;
+uoldDOF = u[]; // copy u values into array
+ofstream unewfile("fem_results/solution.txt");
+  // store array on a file
+  for (int i=0; i<uoldDOF.n; i++) {
+    unewfile << uoldDOF[i] << endl;
+  }
+cout << " ** FreeFem solution -> max: " << u[].max  << " min: " << u[].min << endl;
+}
+
+
+// plot the results
+//plot(u,wait=true);
+
+// compute gradient
+Vh1 dxu = dx(u);
+Vh1 dyu = dy(u);
+Vh1 dzu = dz(u);
+// postprocessing: write u and derivatives as vtk
+// note: Paraview (VTK) can only deal with P1 functions,
+// therefore we have to convert the solution (P2) into a P1.
+real[int] GRADU(3*Vh1.ndof);
+Vh1 up1 = u;
+GRADU=[dxu[],dyu[],dzu[]];
+if (nIter==0) {
+postproc3d(up1[],GRADU,th,"fem_results/cube3d.vtk");
+postproc3d(up1[],GRADU,th,"fem_results/o2_concentration.vtk");
+postproc3dP0(rho[],th,"density","fem_results/density.vtk");
+}
+
+
+
+real[int] XC(nCells),YC(nCells),ZC(nCells),RC(nCells),TYPE(nCells),PH(nCells),ADH(nCells), NAME(nCells);
+real[int] CONCO2(nCells), ENERGY(nCells);
+
+for (int i=0; i<nCells; i++) {
+
+    // read cells;
+    real xc,yc,zc,rc;
+    real phenotypecell;
+    int ID;
+    real dummy, typecell;
+
+    cfile >> xc;
+    cfile >> yc;
+    cfile >> zc;
+    cfile >> typecell;
+    cfile >> rc;
+    cfile >> PH(i);
+    cfile >> ADH(i);
+    cfile >> NAME(i);
+    cfile >> ENERGY(i);	
+
+    XC(i) = xc;
+    YC(i) = yc;
+    ZC(i) = zc;
+    RC(i) = rc;
+    TYPE(i) = typecell;
+
+    //cout << " cell " << i << "type " << typecell << endl;
+    // write concentration
+    conc = u(xc,yc,zc);
+    dxconc = dxu(xc,yc,zc);
+    dyconc = dyu(xc,yc,zc);
+    dzconc = dzu(xc,yc,zc);
+    CONCO2(i) = conc;
+    o2file << conc << " " << dxconc << " " << dyconc << " " << dzconc << endl;
+    if (conc<0) {
+      cout << " cell " << i << " x = " << xc << " " << yc << " " << zc << endl;
+    }
+}

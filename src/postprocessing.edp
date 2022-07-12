@@ -1,0 +1,286 @@
+func int writeBBfiles(string fname, real[int] & PP, real[int] & U1, real[int] & U2)
+{
+cout << " [postprocessing] writing output (bb files) to " << fname << endl;
+ofstream fileV(fname+"_vel.bb");
+// <dimensione spazio> <numero di campi> <numero di valori> <tipo di info>.
+fileV << "2 2 "<< U1.n << " 2 \n"; 
+for (int j=0;j<U1.n ; j++)
+    fileV << U1[j]<< " " << U2[j] << endl;
+
+ofstream fileP(fname+"_pres.bb");
+fileP << "2 1 "<< PP.n << " 2 \n"; 
+for (int j=0;j<PP.n ; j++)
+    fileP << PP[j]<< endl;
+
+
+}
+
+
+func int postproc2d (real[int] & u0,real[int] & velocity,mesh & T,string text)
+{
+
+ ofstream fii(text);
+ //va bene solo per i P1
+ int ntri=T.nt;
+ int vdof = velocity.n/2;
+ fii << "# vtk DataFile Version 2.0"<<endl;
+ fii << "VTK DATA"<<endl;
+ fii << "ASCII"<<endl<<endl;
+ fii << "DATASET UNSTRUCTURED_GRID"<<endl<<endl;
+ fii << "POINTS "<< T.nv << " float"<<endl; 
+
+
+
+ //punti
+ for(int i=0;i<T.nv;i++)
+      fii <<T(i).x<<" "<<T(i).y<<" "<< 0.000000000 <<" "<<endl;
+
+ fii <<endl<< "CELLS "<< ntri <<" "<< 4*ntri <<endl; 
+ //celle 
+ for(int i=0;i<ntri;i++)
+      fii << "3 "<<int(T[i][0])<<" "<<int(T[i][1])<<" "<<int(T[i][2])<<" " << endl;
+
+ fii <<endl<< "CELL_TYPES "<< ntri <<endl; 
+ //ciclo for tutti = 10 o 24
+ for(int i=0;i<ntri;i++)
+     fii <<"5"<<endl;
+ fii << endl<< "POINT_DATA "<< T.nv << endl;
+
+ fii << "SCALARS pressure double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nv;i++)
+   fii << u0[i]<< endl;
+
+ fii << "SCALARS ux double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nv;i++)
+   fii << velocity[i]<< endl;
+
+
+ fii << "SCALARS uy double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nv;i++)
+   fii << velocity[vdof+i]<< endl;
+
+
+ fii << "VECTORS velocity double"<< endl;
+
+ for(int i=0;i<velocity.n/2;i++){
+   fii << velocity[i]<<" " << velocity[vdof+i] << " " << 0;
+      fii << endl;
+}
+
+
+
+ return 0;
+}
+
+
+
+// salva campi di pressione e velocità
+
+func int postproc3d (real[int] & u0,real[int] & velocity,mesh3 & T,string text)
+{
+
+	cout << " [postprocesing] write vtk on " + text << endl;
+ ofstream fii(text);
+ //va bene solo per i P1
+ int ntet=T.nt;
+
+int vdof = velocity.n/3;
+
+ //int nvt=T.nv; 
+ fii << "# vtk DataFile Version 2.0"<<endl;
+ fii << "VTK DATA"<<endl;
+ fii << "ASCII"<<endl<<endl;
+ fii << "DATASET UNSTRUCTURED_GRID"<<endl<<endl;
+ fii << "POINTS "<< T.nv << " float"<<endl; 
+ //punti
+ for(int i=0;i<T.nv;i++)
+      fii <<T(i).x<<" "<<T(i).y<<" "<<T(i).z<<" "<<endl;
+ fii <<endl<< "CELLS "<< ntet <<" "<< 5*ntet <<endl; 
+ //celle 
+ for(int i=0;i<ntet;i++)
+      fii << "4 "<<int(T[i][0])<<" "<<int(T[i][1])<<" "<<int(T[i][2])<<" "
+          <<int(T[i][3])<<endl; 
+ fii <<endl<< "CELL_TYPES "<< ntet <<endl; 
+ //ciclo for tutti = 10 o 24
+ for(int i=0;i<ntet;i++)
+     fii <<"10"<<endl;
+ fii << endl<< "POINT_DATA "<< T.nv << endl;
+ fii << "SCALARS pressure double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nv;i++)
+   fii << u0[i]<< endl;
+
+ fii << "SCALARS ux double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nv;i++)
+   fii << velocity[i]<< endl;
+
+ fii << "SCALARS uy double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nv;i++)
+   fii << velocity[vdof+i]<< endl;
+
+ fii << "SCALARS uz double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nv;i++)
+   fii << velocity[2*vdof+i]<< endl;
+
+ fii << "SCALARS u2 double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nv;i++)
+   fii << velocity[i]*velocity[i]+
+   velocity[vdof+i]*velocity[vdof+i]+velocity[2*vdof+i]*velocity[2*vdof+i]<< endl;
+
+
+
+ fii << "VECTORS velocity double"<< endl;
+ for(int i=0;i<velocity.n/3;i++){
+   fii << velocity[i]<<" " << velocity[vdof+i] << " " << velocity[2*vdof+i];
+      fii << endl;
+}
+
+
+
+ return 0;
+}
+
+
+
+
+
+//func int postprocCells (int dim, real[int] & xc, real[int] & yc, real[int] & zc,
+//     real[int] & rc, real[int] & phenotype, real[int] & tp,string text)
+func int postprocCells (int dim, real[int] & xc, real[int] & yc, real[int] & zc,
+     real[int] & rc, real[int] & phenotype,real[int] & adhesion,real[int] & tp, real[int] & cO2, real[int] & name, real[int] & ener, string text)
+{
+
+ofstream outfile(text);
+
+int nCells = xc.n;
+
+outfile << "# vtk DataFile Version 2.0" << endl;
+outfile << "Unstructured grid legacy vtk file with point scalar data" << endl;
+outfile << "ASCII\n\n";
+
+outfile << "DATASET UNSTRUCTURED_GRID\n";
+outfile << "POINTS " << nCells << " double\n";
+
+// write positions
+for (int i=0; i<nCells; i++) {
+outfile << xc(i) << " " << yc(i);
+if (dim==3){
+outfile << " " << zc(i);
+}
+outfile << endl;
+}
+
+outfile << endl;
+
+// write cell type
+outfile << "POINT_DATA " << nCells << endl;
+outfile << "SCALARS status double" << endl;
+outfile << "LOOKUP_TABLE default" << endl;
+for (int i=0; i<nCells; i++) {
+outfile << tp(i) << endl;
+}
+outfile << endl;
+
+// write oxygen
+outfile << "SCALARS concentration double" << endl;
+outfile << "LOOKUP_TABLE default" << endl;
+for (int i=0; i<nCells; i++) {
+outfile << cO2(i) << endl;
+}
+outfile << endl;
+
+// write cell energy
+outfile << "SCALARS energy double" << endl;
+outfile << "LOOKUP_TABLE default" << endl;
+for (int i=0; i<nCells; i++) {
+outfile << ener(i) << endl;
+}
+outfile << endl;
+
+// write radii
+outfile << "VECTORS radius double" << endl;
+for (int i=0; i<nCells; i++) {
+outfile << rc(i) << " " << 0 << " " << 0 <<  endl;
+}
+outfile << endl;
+
+//write phenoype
+outfile << "SCALARS phenot double" << endl;
+outfile << "LOOKUP_TABLE default" << endl;
+for (int i=0; i<nCells; i++) {
+outfile << phenotype(i) << endl;
+}
+outfile << endl;
+
+
+
+//write adhesion
+outfile << "SCALARS adhesion double" << endl;
+outfile << "LOOKUP_TABLE default" << endl;
+for (int i=0; i<nCells; i++) {
+outfile << adhesion(i) << endl;
+}
+outfile << endl;
+
+
+//write adhesion
+outfile << "SCALARS name double" << endl;
+outfile << "LOOKUP_TABLE default" << endl;
+for (int i=0; i<nCells; i++) {
+outfile << name(i) << endl;
+}
+outfile << endl;
+
+
+
+}
+
+
+
+// save a p0-field
+
+func int postproc3dP0 (real[int] & u0,mesh3 & T,string fieldname,string text)
+{
+
+	cout << " [postprocesing] write vtk on " + text << endl;
+ ofstream fii(text);
+ //va bene solo per i P1
+
+ //int nvt=T.nv; 
+ fii << "# vtk DataFile Version 2.0"<<endl;
+ fii << "VTK DATA"<<endl;
+ fii << "ASCII"<<endl<<endl;
+ fii << "DATASET UNSTRUCTURED_GRID"<<endl<<endl;
+ fii << "POINTS "<< T.nv << " float"<<endl; 
+ //punti
+ for(int i=0;i<T.nv;i++)
+      fii <<T(i).x<<" "<<T(i).y<<" "<<T(i).z<<" "<<endl;
+ fii <<endl<< "CELLS "<< T.nt <<" "<< 5*T.nt <<endl; 
+ //celle 
+ for(int i=0;i<T.nt;i++)
+      fii << "4 "<<int(T[i][0])<<" "<<int(T[i][1])<<" "<<int(T[i][2])<<" "
+          <<int(T[i][3])<<endl; 
+ fii <<endl<< "CELL_TYPES "<< T.nt <<endl; 
+ //ciclo for tutti = 10 o 24
+ for(int i=0;i<T.nt;i++)
+     fii <<"10"<<endl;
+
+ fii << endl<< "CELL_DATA "<< T.nt << endl;
+ fii << "SCALARS " << fieldname << " double" << endl;
+ fii << "LOOKUP_TABLE default"<< endl;
+ for(int i=0;i<T.nt;i++)
+   fii << u0[i]<< endl;
+
+
+ return 0;
+}
+
+
+
