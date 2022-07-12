@@ -9,7 +9,8 @@ Step 2: within the CMD navigate to your preferred directory (folder e.g. I have 
 
 Step 3: In order to run the code you will need to have FreeFem installed (download from https://freefem.org/) and a c++ compiler (this video may be helpful https://www.youtube.com/watch?v=ml3xutoE5JM). To view the code (optional) you will need something like visual studio (https://visualstudio.microsoft.com/vs/features/cplusplus/)
 
-Step 4: Navigate to the src folder and type make in CMD which will compile the code (fingers crossed for no errors). 
+Step 4: Navigate to src and type make in CMD which will compile the code (fingers crossed for no errors). 
 
-Step 5: To run the code navigate to the example/first_simulation and type ../../src/cell++ input.dat in CMD hopefully the code will run :)
+Step 5: To run the code navigate to example/first_simulation and type ../../src/cell++ input.dat in CMD hopefully the code will run :)
 
+Step 6: In order to store results from the simulation create directories called vtk; output and fem_results within the first_simulation directory.
