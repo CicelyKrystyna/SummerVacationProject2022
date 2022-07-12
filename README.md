@@ -5,7 +5,7 @@ In this project we will use a previously developed c++ 3D off-lattice agent-base
 
 Step 1: become familiar with the windows command line (CMD) if you are not already https://www.makeuseof.com/tag/a-beginners-guide-to-the-windows-command-line/
 
-Step 2: within the CMD navigate to your preferred directory (folder e.g. I have my code sitting within my Desktop) and type git checkout https://github.com/CicelyKrystyna/SummerVacationProject2022.git to download the code. You should then have a new folder which contains the source code (src), this README file and an example. 
+Step 2: within the CMD navigate to your preferred directory (folder e.g. I have my code sitting within my Desktop) and type git checkout https://github.com/CicelyKrystyna/SummerVacationProject2022.git to download the code. You should then have a new directory which contains the source code (src), this README file and an example directory. 
 
 Step 3: In order to run the code you will need to have FreeFem installed (download from https://freefem.org/) and a c++ compiler (this video may be helpful https://www.youtube.com/watch?v=ml3xutoE5JM). To view the code (optional) you will need something like visual studio (https://visualstudio.microsoft.com/vs/features/cplusplus/)
 
