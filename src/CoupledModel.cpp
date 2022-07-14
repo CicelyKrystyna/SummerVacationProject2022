@@ -2933,17 +2933,17 @@ void CoupledModel::loop()
 
             // check if the solver has to be called
             /// @todo generalize with density change
-            double relative_density_change = density_change/this->total_no_of_cells;
+            //double relative_density_change = density_change/this->total_no_of_cells;
 
             if (total_no_of_cells<200) {
 	            this->oxy_diff.launch = (this->reloj==1) || (this->reloj%100==0);
-	            this->oxy_diff.launch = (this->oxy_diff.launch || (relative_density_change>0.1) );
+	            this->oxy_diff.launch = (this->oxy_diff.launch || (density_change>15) );
             }
             else if (total_no_of_cells<2000) {
-	            this->oxy_diff.launch = ( (relative_density_change>0.1) || (this->reloj%400==0) );
+	            this->oxy_diff.launch = ( (density_change>80) || (this->reloj%400==0) );
             }
             else {
-	            this->oxy_diff.launch = ( (relative_density_change>0.1) || (this->reloj%1000==0) );
+	            this->oxy_diff.launch = ( (density_change>200) || (this->reloj%1000==0) );
             }
         
             /*
