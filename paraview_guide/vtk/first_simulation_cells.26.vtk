@@ -4,7 +4,7 @@ ASCII
 
 DATASET UNSTRUCTURED_GRID
 POINTS 1 double
-99.9447 99.6768 100.322
+350.056 349.94 400.646
 
 POINT_DATA 1
 SCALARS radius double
@@ -17,7 +17,7 @@ LOOKUP_TABLE default
 
 SCALARS concentration double
 LOOKUP_TABLE default
-38.9575
+32.6541
 
 SCALARS fibres double
 LOOKUP_TABLE default

@@ -40,7 +40,7 @@ int nVesselsAll = 1;
 int nVesselsBlocked = 0;
 // !!! ============================================================= !!
 // this must be the same as in the input.dat
-string meshFileName = "domain_adaptive_200x200x200_one_vessel.mesh";
+string meshFileName = "domain_adaptive_800x800x800_one_vessel.mesh";
 string outdir = "output/"; 
 // !!! ============================================================= !!
 

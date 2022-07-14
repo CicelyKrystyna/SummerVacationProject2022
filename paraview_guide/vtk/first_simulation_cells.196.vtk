@@ -3,135 +3,51 @@ Unstructured grid legacy vtk file with point scalar data
 ASCII
 
 DATASET UNSTRUCTURED_GRID
-POINTS 8 double
-93.865 103.755 98.2287
-91.2613 98.259 107.332
-95.057 105.271 91.2878
-96.14 95.3314 100.34
-102.914 100.742 102.099
-96.0316 102.268 104.261
-98.743 102.636 110.475
-107.487 101.045 94.6714
+POINTS 1 double
+348.206 347.79 402.553
 
-POINT_DATA 8
+POINT_DATA 1
 SCALARS radius double
 LOOKUP_TABLE default
-4.63728
-5.03728
-5.08666
-5.08666
-5.02287
-4.63728
-5.03728
-5.02287
+5
 
 SCALARS status double
 LOOKUP_TABLE default
 1
-1
-1
-1
-1
-1
-1
-1
 
 SCALARS concentration double
 LOOKUP_TABLE default
-38.9575
-38.9575
-38.9575
-38.9575
-38.9575
-38.9575
-38.9575
-38.9575
+32.3507
 
 SCALARS fibres double
 LOOKUP_TABLE default
-0
-0
-0
-0
-0
-0
-0
 0
 
 SCALARS phenot double
 LOOKUP_TABLE default
 7
-7
-7
-7
-7
-7
-7
-7
 
 SCALARS cont_pheno double
 LOOKUP_TABLE default
 0.5
-0.5
-0.5
-0.5
-0.5
-0.5
-0.5
-0.5
 
 SCALARS name double
 LOOKUP_TABLE default
-2
-1
-6
-3
 0
-7
-4
-5
 
 SCALARS interaction_phenotype double
 LOOKUP_TABLE default
-0
-0
-0
-0
-0
-0
-0
 0
 
 SCALARS vessel_interaction double
 LOOKUP_TABLE default
 0
-0
-0
-0
-0
-0
-0
-0
 
 SCALARS is_follower double
 LOOKUP_TABLE default
 1
-1
-1
-1
-1
-1
-1
-1
 
 SCALARS polarised double
 LOOKUP_TABLE default
-0
-0
-0
-0
-0
-0
-0
 0
 

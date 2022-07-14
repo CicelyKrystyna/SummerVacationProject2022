@@ -10,13 +10,13 @@ int[int] p1(nVessels), p2(nVessels);
 cout << " *** creating vein nodes... *** " << endl;
 // nodes
 // vessel: directed along z (0,0,1)
-xN(0) = 150;
-yN(0) = 150;
+xN(0) = 400;
+yN(0) = 400;
 zN(0) = 0;
 
-xN(1) = 150;
-yN(1) = 150;
-zN(1) = 200;
+xN(1) = 400;
+yN(1) = 400;
+zN(1) = 800;
 
 
 cout << " *** creating vessels... *** " << endl;
