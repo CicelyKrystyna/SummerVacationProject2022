@@ -1,0 +1,73 @@
+===============================================
+EUCLID BASICS
+===============================================
+
+===============================================
+Logging in to a EUCLID
+===============================================
+> ssh [USERNAME]@ssh.maths.gla.ac.uk
+> [PASSWORD]
+> ssh -X euclid-[#]
+================================================
+
+===============================================
+Logging out
+===============================================
+> exit (leaves specific euclid)
+> exit (leaves ssh.maths.gla.ac.uk)
+================================================
+
+=============================================================================================================================================================
+Copying local files to EUCLID
+=============================================================================================================================================================
+Make a directory on your EUCLID account called something like SummerProject0222
+> mkdir SummerProject2022
+Navigate on you laptop to SummerVacationProject2022 and copy all key files from here into the directory you made above
+> rsync -avu examples/first_simulation/input.dat [USERNAME]@ssh.maths.gla.ac.uk:/home/staff4/[USERNAME]/SummerProject2022
+> [PASSWORD]
+> rsync -avu examples/first_simulation/vein_geometry.edp [USERNAME]@ssh.maths.gla.ac.uk:/home/staff4/[USERNAME]/SummerProject2022
+> [PASSWORD]
+> rsync -avu examples/first_simulation/diffusion_solver_3d.edp [USERNAME]@ssh.maths.gla.ac.uk:/home/staff4/[USERNAME]/SummerProject2022
+> [PASSWORD]
+> rsync -avu examples/first_simulation/domain_adaptive_800x800x800_one_vessel.mesh [USERNAME]@ssh.maths.gla.ac.uk:/home/staff4/[USERNAME]/SummerProject2022
+> [PASSWORD]
+> rsync -avu ./src [USERNAME]@ssh.maths.gla.ac.uk:/home/staff4/[USERNAME]/SummerProject2022
+[Note your user area may be located in an alternative directory to staff4 type pwd to find out where you are] 
+=============================================================================================================================================================
+
+==================================================
+Running Simulations
+==================================================
+Navigate to src 
+> cd src
+> make
+Navigate back to SummerProject2022 and run
+> cd ..
+> src/cell++ input.dat
+Remember you will need the following directories 
+> mkdir vtk; mkdir fem_results; mkdir output
+==================================================
+
+=============================================================================================================================================================
+Copying EUCLID files back to local computer
+=============================================================================================================================================================
+Navigate on you laptop to SummerVacationProject2022 and copy all key files from EUCLID back here
+> rsync -avu [USERNAME]@ssh.maths.gla.ac.uk:/home/staff4/[USERNAME]/SummerProject2022/vtk examples/first_simulation/vtk
+> [PASSWORD]
+> rsync -avu [USERNAME]@ssh.maths.gla.ac.uk:/home/staff4/[USERNAME]/SummerProject2022/output examples/first_simulation/output
+> [PASSWORD]
+> rsync -avu [USERNAME]@ssh.maths.gla.ac.uk:/home/staff4/[USERNAME]/SummerProject2022/fem_results examples/first_simulation/fem_results
+> [PASSWORD]
+=============================================================================================================================================================
+
+==================================================================================================
+Using vim
+==================================================================================================
+Since the EUCLIDs are LINUX workstations you may find it useful to open/edit files using vim e.g.
+> vim input.dat
+This will open up the file in the terminal window
+(*) press i to enter insert mode allowing you to edit
+(*) press esc to exit insert mode
+(*) type :wq followed by return/enter to write your changes to the file and quit vim
+==================================================================================================
+
