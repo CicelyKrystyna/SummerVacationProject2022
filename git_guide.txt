@@ -1,0 +1,36 @@
+GITLAB BASICS
+===============================================
+
+==========================================================================
+CLONE PROJECT *** ONE OFF ***
+==========================================================================
+> git clone https://gitlab.com/CicelyKrystyna/SummerVacationProject2022
+> enter username 
+> enter password 
+==========================================================================
+
+======================================================
+PULL PROJECT *** download latested updated version ***
+======================================================
+Enter the SummerVacationProject2022 directory
+> git pull
+======================================================
+
+======================================================
+PUSH PROJECT *** upload changes made locally ***
+======================================================
+Enter the SummerVacationProject2022 directory
+> git status
+determines status of files e.g. conflicts since commit
+
+Add changes made:
+> git add filepath/filname
+
+Commit the changes locally:
+> git commit
+opens up a vim window edit to add a commit comment
+
+Upload to remote repository:
+> git push
+======================================================
+
