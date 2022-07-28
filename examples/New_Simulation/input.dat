@@ -1,0 +1,70 @@
+# ======================= 
+# INPUT FILE (GetPot): input.dat
+# ======================= 
+
+# n.b.: these variables must coincide with the freefem input file
+[coupling]
+fileCells2FEM = output/cells.txt
+fileCellsDensity2FEM = output/cell_density.txt
+fileFEM2Cells = output/concentration.txt
+
+# n.b.: these variables must coincide with the freefem input file
+[fem]
+meshdir = './'
+meshname = 'domain_adaptive_800x800x800_one_vessel.mesh'
+FreeFemFile = diffusion_solver_3d.edp
+FreeFemCall = FreeFem++
+femSolverType = 1
+
+[cells]
+n_initial_cells = 1
+n_steps = 1000
+time_step = 1
+hypoxic_birth = 1e-3
+normoxic_birth = 1e-2
+death = 0.0
+hypoxic_friction = 1.0
+variance_motion = 1e-3
+
+[mutations]
+initial_phenotype = 0.5
+mutation_amount = 0.05
+mutation_probability = 1e-4
+alpha_s = 2.5
+
+
+[geo]
+boxesx = 81
+boxesy = 81
+boxesz = 81
+lattice_length_x = 800.1
+lattice_length_y = 800.1
+lattice_length_z = 800.1
+ic_cell_x = '350.0'
+ic_cell_y = '350.0'
+ic_cell_z = '400.0'
+max_cell = 5000000
+dimension = 3
+
+[vessels]
+n_initial_vessels = 1
+vessel_length = '800.0'
+vessel_radius = '20.0'
+vessel_startx = '400.0'
+vessel_starty = '400.0'
+vessel_startz = '0.0'
+vessel_directionx = '0.0'
+vessel_directiony = '0.0'
+vessel_directionz = '1.0'
+
+
+[postprocessing]
+outputDirectory = ./vtk/  # where to put the output files
+testcase = first_simulation # name to identify the test case
+casename = first_simulation
+casedirectory = ./output/
+verbose = 0
+writeVtkCells = 1
+writeVtkFibres = 0
+writeVtkVessels = 0
+writeCells = 0
