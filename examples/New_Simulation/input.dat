@@ -17,7 +17,7 @@ FreeFemCall = FreeFem++
 femSolverType = 1
 
 [cells]
-n_initial_cells = 1
+n_initial_cells = 64
 n_steps = 1000
 time_step = 1
 hypoxic_birth = 1e-3
@@ -40,8 +40,8 @@ boxesz = 81
 lattice_length_x = 800.1
 lattice_length_y = 800.1
 lattice_length_z = 800.1
-ic_cell_x = '350.0'
-ic_cell_y = '350.0'
+ic_cell_x = '400.0'
+ic_cell_y = '400.0'
 ic_cell_z = '400.0'
 max_cell = 5000000
 dimension = 3
@@ -59,9 +59,9 @@ vessel_directionz = '1.0'
 
 
 [postprocessing]
-outputDirectory = ./vtk/  # where to put the output files
-testcase = first_simulation # name to identify the test case
-casename = first_simulation
+outputDirectory = ./vtk  # where to put the output files
+testcase = New_Simulation # name to identify the test case
+casename = New_Simulation
 casedirectory = ./output/
 verbose = 0
 writeVtkCells = 1
