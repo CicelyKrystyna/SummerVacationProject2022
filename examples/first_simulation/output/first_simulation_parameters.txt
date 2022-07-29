@@ -1,0 +1,32 @@
+The parameters for the case **first_simulation** are:
+
+There are 1 cell(s) at the start of the simulation: 
+After 1000 timesteps there are 132 cell(s) at the end of the simulation 
+(norm,hypo,dead): 132 0 43
+
+[cells]
+growth rate = 0.1 
+normoxic birth rate = 0.01
+hypoxic birth rate = 0.001
+Youngs Modulus = 0.001 
+Poisson number = 0.5 
+GCM = 0.01 
+adhesion value = 0.000372 
+random motion = 0.001
+birth energy = 0.00328749
+
+[vessels]
+Youngs Modulus = 0.001
+Poisson number = 0.5
+adhesion value = 0.000372
+
+[mutations]
+mutation_amount = 0.05
+mutation_probability = 0.0001
+
+[oxygen]
+threshold_hypo = 7
+threshold_death = 0.7
+
+[fibres]
+There are no fibres in this simulation

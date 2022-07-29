@@ -1,0 +1,65 @@
+# vtk DataFile Version 2.0
+Unstructured grid legacy vtk file with point scalar data
+ASCII
+
+DATASET UNSTRUCTURED_GRID
+POINTS 2 double
+350.324 349.839 395.062
+351.686 350.476 403.705
+
+POINT_DATA 2
+SCALARS radius double
+LOOKUP_TABLE default
+5.0685
+5.0685
+
+SCALARS status double
+LOOKUP_TABLE default
+1
+1
+
+SCALARS concentration double
+LOOKUP_TABLE default
+32.6541
+32.6541
+
+SCALARS fibres double
+LOOKUP_TABLE default
+0
+0
+
+SCALARS phenot double
+LOOKUP_TABLE default
+7
+7
+
+SCALARS cont_pheno double
+LOOKUP_TABLE default
+0.5
+0.5
+
+SCALARS name double
+LOOKUP_TABLE default
+1
+0
+
+SCALARS interaction_phenotype double
+LOOKUP_TABLE default
+0
+0
+
+SCALARS vessel_interaction double
+LOOKUP_TABLE default
+0
+0
+
+SCALARS is_follower double
+LOOKUP_TABLE default
+1
+1
+
+SCALARS polarised double
+LOOKUP_TABLE default
+0
+0
+
