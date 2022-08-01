@@ -1,0 +1,233 @@
+# vtk DataFile Version 2.0
+Unstructured grid legacy vtk file with point scalar data
+ASCII
+
+DATASET UNSTRUCTURED_GRID
+POINTS 16 double
+351.739 354.934 408.193
+351.071 363.269 403.689
+355.339 357.151 400.403
+355.494 369.584 407.025
+361.319 351.226 399.912
+359.203 347.238 407.103
+363.519 361.505 389.482
+356.004 361.737 393.622
+363.427 358.787 397.721
+362.166 357.137 406.043
+356.137 361.839 410.501
+358.703 365.574 400.507
+369.472 352.714 394.378
+369.286 350.706 400.27
+369.936 354.158 407.213
+368.892 362.33 403.695
+
+POINT_DATA 16
+SCALARS radius double
+LOOKUP_TABLE default
+5.03728
+5.03728
+5.08666
+5.03728
+5.04636
+5.09809
+5.03728
+5.03728
+5.03728
+5.08666
+5.08666
+5.03728
+4.3053
+4.2053
+5.03728
+5.03728
+
+SCALARS status double
+LOOKUP_TABLE default
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+SCALARS concentration double
+LOOKUP_TABLE default
+36.301
+36.301
+36.8838
+39.8896
+36.7462
+36.7462
+41.2827
+39.0978
+40.5739
+39.728
+39.728
+39.8896
+36.7462
+36.7462
+40.6014
+40.5739
+
+SCALARS fibres double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS phenot double
+LOOKUP_TABLE default
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+
+SCALARS cont_pheno double
+LOOKUP_TABLE default
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+
+SCALARS name double
+LOOKUP_TABLE default
+5
+11
+0
+14
+9
+4
+6
+8
+2
+1
+12
+7
+15
+13
+3
+10
+
+SCALARS interaction_phenotype double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS vessel_interaction double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS is_follower double
+LOOKUP_TABLE default
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+SCALARS polarised double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+

@@ -1,0 +1,269 @@
+# vtk DataFile Version 2.0
+Unstructured grid legacy vtk file with point scalar data
+ASCII
+
+DATASET UNSTRUCTURED_GRID
+POINTS 19 double
+355.421 355.297 400.943
+352.094 353.507 407.793
+354.473 362.002 399.042
+350.814 361.963 405.828
+352.269 369.134 398.666
+352.987 372.523 407.082
+361.65 350.538 400.256
+358.331 347.669 407.564
+364.716 362.215 388.948
+357.042 361.997 391.814
+363.425 357.914 396.561
+361.93 365.241 399.69
+362.105 358.321 405.501
+356.502 359.277 411.795
+358.462 365.946 406.985
+369.7 353.203 394.071
+369.809 349.299 401.72
+369.346 354.806 408.16
+369.325 362.413 404.039
+
+POINT_DATA 19
+SCALARS radius double
+LOOKUP_TABLE default
+5.03728
+5.03728
+5.03728
+5.03728
+5.09809
+5.09809
+5.04636
+5.09809
+5.03728
+5.03728
+5.03728
+5.09809
+5.08666
+5.08666
+5.09809
+5.0053
+5.0053
+5.03728
+5.03728
+
+SCALARS status double
+LOOKUP_TABLE default
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+SCALARS concentration double
+LOOKUP_TABLE default
+37.129
+34.9205
+37.129
+36.7133
+39.4567
+40.7269
+36.5693
+34.115
+41.8417
+38.6713
+40.6326
+41.9429
+39.8125
+38.6136
+40.7085
+39.8607
+38.4461
+40.9011
+44.385
+
+SCALARS fibres double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS phenot double
+LOOKUP_TABLE default
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+
+SCALARS cont_pheno double
+LOOKUP_TABLE default
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+
+SCALARS name double
+LOOKUP_TABLE default
+0
+5
+18
+11
+16
+14
+9
+4
+6
+8
+2
+7
+1
+12
+17
+15
+13
+3
+10
+
+SCALARS interaction_phenotype double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS vessel_interaction double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS is_follower double
+LOOKUP_TABLE default
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+SCALARS polarised double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+

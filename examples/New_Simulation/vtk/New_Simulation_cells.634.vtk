@@ -1,0 +1,281 @@
+# vtk DataFile Version 2.0
+Unstructured grid legacy vtk file with point scalar data
+ASCII
+
+DATASET UNSTRUCTURED_GRID
+POINTS 20 double
+355.463 354.438 394.83
+354.945 354.573 402.836
+351.056 353.175 409.187
+354.968 362.197 399.134
+350.747 361.571 406.468
+352.037 370.354 398.758
+352.927 372.278 406.776
+361.716 350.467 400.223
+358.359 348.198 407.545
+365.121 361.739 388.964
+357.122 361.759 391.49
+363.324 357.5 396.228
+362.699 365.242 399.738
+361.687 357.814 404.947
+356.994 359.019 412.096
+358.655 365.606 407.155
+370.335 352.975 394.365
+369.733 349.06 401.635
+369.68 354.743 408.171
+368.897 362.476 404.343
+
+POINT_DATA 20
+SCALARS radius double
+LOOKUP_TABLE default
+5.09809
+5.09809
+5.03728
+5.03728
+5.03728
+5.09809
+5.09809
+5.04636
+5.09809
+5.03728
+5.03728
+5.03728
+5.09809
+5.08666
+5.08666
+5.09809
+5.0053
+5.0053
+5.03728
+5.03728
+
+SCALARS status double
+LOOKUP_TABLE default
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+SCALARS concentration double
+LOOKUP_TABLE default
+37.129
+37.129
+34.9205
+37.129
+36.7133
+39.4567
+40.7269
+36.5693
+34.115
+41.8417
+38.6713
+40.6326
+41.9429
+39.8125
+38.6136
+40.7085
+39.8607
+38.4461
+40.9011
+44.385
+
+SCALARS fibres double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS phenot double
+LOOKUP_TABLE default
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+
+SCALARS cont_pheno double
+LOOKUP_TABLE default
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+0.5
+
+SCALARS name double
+LOOKUP_TABLE default
+19
+0
+5
+18
+11
+16
+14
+9
+4
+6
+8
+2
+7
+1
+12
+17
+15
+13
+3
+10
+
+SCALARS interaction_phenotype double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS vessel_interaction double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+SCALARS is_follower double
+LOOKUP_TABLE default
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+SCALARS polarised double
+LOOKUP_TABLE default
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+

@@ -1,0 +1,21 @@
+# vtk DataFile Version 3.0
+Vessels output - vtk 
+ASCII
+DATASET UNSTRUCTURED_GRID
+POINTS 2 double
+400 400 0
+400 400 800
+CELLS 1 3
+2 0 1
+CELL_TYPES 1
+3
+CELL_DATA  1
+SCALARS length float
+LOOKUP_TABLE default
+800
+SCALARS vessel_name double
+LOOKUP_TABLE default
+0
+SCALARS vessel_radius double
+LOOKUP_TABLE default
+20
