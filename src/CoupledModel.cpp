@@ -1120,8 +1120,8 @@ void CoupledModel::cell_mutation(Cell& cell)
   double mutation = aleatorio();
   double lambda = params.mutation_probability;
   double nu = params.mutation_amount;
-  double pR = 0.5;
-  //double pR = cell.O2/60.0; // need to put 60 in as max cell.O2 somehow
+  //double pR = 0.5;
+  double pR = cell.O2/60.0; // need to put 60 in as max cell.O2 somehow
   //lambda/2.0;//+1.0/2.0*(1-cell.O2/60.0); // taken from Stace et al. paper
   double leftside = 0.0;
   double rightside = 1.0;
